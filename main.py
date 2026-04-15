@@ -28,3 +28,4 @@ for line in f:
         invalid_rows = invalid_rows + 1
         print("Invalid row: ", line)
         continue
+    
