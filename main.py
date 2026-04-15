@@ -28,3 +28,11 @@ for line in f:
         invalid_rows = invalid_rows + 1
         print("Invalid row: ", line)
         continue
+
+    try: 
+        month = int(fields[1])
+        day = int(fields[2])
+    except:
+        invalid_rows = invalid_rows + 1
+        print("Invalid row: ", line)
+        continue
