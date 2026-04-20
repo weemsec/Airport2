@@ -71,3 +71,12 @@ for line in f:
     #If the code reaches here, the row has passed the first 4 steps!
     valid_rows += 1
 
+    #Destination
+    destination = fields[3].strip()
+    if len(destination) != 3:
+        invalid_rows += 1
+        print("Invalid destination")
+        continue
+
+    #
+
