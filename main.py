@@ -1,6 +1,6 @@
 #Eli
 #Fermin
-
+        
 #takes value turns to int or no vlaue if blank
 def to_int_or_none ():
     value = value.strip
@@ -94,13 +94,28 @@ for line in f:
         print("Invalid number")
         continue
 
-    #changing from string to int
+    #Cancelled changing from string to int 
     try:
-        cancelled = int(fields[8])
+        cancelled = to_int_or_none(fields[8])
     except:
         invalid_rows += 1
         print("Invalid number")
         continue
 
     #
+    #Depature delay
 
+
+
+
+    #Arrival delay
+    if to_int_or_none(fields[8]) is None:
+        print("Invalid arrival delay")
+        continue
+    elif to_int_or_none(fields[8]) < 15:
+        print("LATE")
+        continue
+
+
+
+    #Cancelled
