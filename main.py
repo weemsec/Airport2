@@ -94,5 +94,13 @@ for line in f:
         print("Invalid number")
         continue
 
+    #changing from string to int
+    try:
+        cancelled = int(fields[8])
+    except:
+        invalid_rows += 1
+        print("Invalid number")
+        continue
+
     #
 
