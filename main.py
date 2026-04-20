@@ -1,6 +1,8 @@
 #Eli
 #Fermin
 
+ 
+
 filename = input("Enter the filename: ")
 f = open(filename, "r")
 valid_rows = 0
