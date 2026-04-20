@@ -1,13 +1,14 @@
 #Eli
 #Fermin
-
-
-
-
-
-
-
         
+#takes value turns to int or no vlaue if blank
+def to_int_or_none ():
+    value = value.strip
+    if value == "":
+        return None
+    return int(value)
+
+
 filename = input("Enter the filename: ")
 f = open(filename, "r")
 valid_rows = 0
@@ -88,3 +89,16 @@ for line in f:
     #Depature delay
 
 
+
+
+    #Arrival delay
+    if to_int_or_none(fields[8]) is None:
+        print("Invalid arrival delay")
+        continue
+    elif to_int_or_none(fields[8]) < 15:
+        print("LATE")
+        continue
+
+
+
+    #Cancelled
