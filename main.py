@@ -1,8 +1,6 @@
 #Eli
 #Fermin
 
-print("this is the main")
-
 filename = input("Enter the filename: ")
 f = open(filename, "r")
 valid_rows = 0
@@ -37,6 +35,23 @@ for line in f:
         invalid_rows = invalid_rows + 1
         print("Invalid row: ", line)
         continue
+    #checks to see if its a real number for the month
+    if month < 1 or month > 12:
+        print("Invalid moth")
+    #check for the right days in febuary
+    if month == 2:
+        if day > 29 or day < 0:
+            print("Invalid days ")
+            continue
+    #Makes sure  the month has right day
+    elif month in [4,6,9,11]:
+        if day != 30:
+            print("Invalid days")
+            continue
+    else:
+        if day != 31:
+            print("Invalid days")
+            continue
 
 
     #OP_UNIQUE_CARRIER Validation
@@ -47,6 +62,7 @@ for line in f:
         continue
 
     # Origin must be CLT or ATL
+    origin = fields[4]
     if origin not in ["CLT","ATL"]:
         invalid_rows += 1
         print("Invalid origin")
