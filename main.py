@@ -1,6 +1,13 @@
 #Eli
 #Fermin
 
+
+
+
+
+
+
+        
 filename = input("Enter the filename: ")
 f = open(filename, "r")
 valid_rows = 0
@@ -78,5 +85,6 @@ for line in f:
         print("Invalid destination")
         continue
 
-    #
+    #Depature delay
+
 
