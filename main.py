@@ -1,7 +1,13 @@
 #Eli
 #Fermin
 
- 
+#takes value turns to int or no vlaue if blank
+def to_int_or_none ():
+    value = value.strip
+    if value == "":
+        return None
+    return int(value)
+
 
 filename = input("Enter the filename: ")
 f = open(filename, "r")
