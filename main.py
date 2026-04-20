@@ -29,3 +29,29 @@ for line in f:
         print("Invalid row: ", line)
         continue
     
+
+    try: 
+        month = int(fields[1])
+        day = int(fields[2])
+    except:
+        invalid_rows = invalid_rows + 1
+        print("Invalid row: ", line)
+        continue
+
+
+    #OP_UNIQUE_CARRIER Validation
+    carrier = fields[3].strip()
+    if len(carrier) !=2:
+        invalid_rows = invalid_rows + 1
+        print("Invalid Carrier")
+        continue
+
+    # Origin must be CLT or ATL
+    if origin not in ["CLT","ATL"]:
+        invalid_rows += 1
+        print("Invalid origin")
+        continue
+
+    #If the code reaches here, the row has passed the first 4 steps!
+    valid_rows += 1
+
