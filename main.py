@@ -92,6 +92,7 @@ for line in f:
     except:
         invalid_rows += 1
         print("Invalid number")
+        continue
 
     #
 
