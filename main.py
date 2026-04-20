@@ -102,6 +102,11 @@ for line in f:
         invalid_rows += 1
         print("Invalid number")
         continue
+    #checks if 1 or 0 
+    if cancelled > 1 or cancelled < 0:
+        invalid_rows += 1
+        print("Invalid number")
+        continue
 
     #
     #Depature delay
