@@ -46,6 +46,7 @@ for line in f:
     #checks to see if its a real number for the month
     if month < 1 or month > 12:
         print("Invalid moth")
+        continue
     #check for the right days in febuary
     if month == 2:
         if day > 29 or day < 0:
