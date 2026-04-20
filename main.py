@@ -85,6 +85,13 @@ for line in f:
         invalid_rows += 1
         print("Invalid destination")
         continue
+    
+    try:
+        dep_delay = to_int_or_none(fields[6])
+        arr_delay = to_int_or_none(fields[7])
+    except:
+        invalid_rows += 1
+        print("Invalid number")
 
     #
 
