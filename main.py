@@ -50,7 +50,7 @@ for line in f:
     #check for the right days in febuary
     if month == 2:
         if day > 29 or day < 0:
-            print("Invalid days ")
+            print("Invalid days")
             continue
     #Makes sure  the month has right day
     elif month in [4,6,9,11]:
@@ -65,7 +65,7 @@ for line in f:
 
     #OP_UNIQUE_CARRIER Validation
     carrier = fields[3].strip()
-    if len(carrier) !=2:
+    if len(carrier) != 2:
         invalid_rows = invalid_rows + 1
         print("Invalid Carrier")
         continue
@@ -78,8 +78,9 @@ for line in f:
         continue
 
     #If the code reaches here, the row has passed the first 4 steps!
+
     #Destination
-    destination = fields[3].strip()
+    destination = fields[5].strip()
     if len(destination) != 3:
         invalid_rows += 1
         print("Invalid destination")
@@ -107,3 +108,6 @@ for line in f:
         continue
 
     valid_rows += 1
+
+f.close()
+print(f"Valid rows: {valid_rows}, Invalid rows: {invalid_rows}")
