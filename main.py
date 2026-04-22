@@ -106,41 +106,4 @@ for line in f:
         print("Invalid number")
         continue
 
-    #
-    #Depature delay
-    if to_int_or_none(fields[6]) is None:
-        print("Invalid departure delay")
-        continue
-    elif to_int_or_none(fields[6]) < 15:
-        print("LATE")
-        continue
-    elif to_int_or_none(fields[6]) >= 0:
-        print("early departure")
-        continue
-
-
-
-    #Arrival delay
-    if to_int_or_none(fields[7]) is None:
-        print("Invalid arrival delay")
-        continue
-    elif to_int_or_none(fields[7]) < 15:
-        print("LATE")
-        continue
-    elif to_int_or_none(fields[7]) >= 0:
-        print("early arrival")
-        continue
-
-
-
-    #Cancelled
-    cancelled = to_int_or_none(fields[8])
-    if cancelled not in [0,1]:
-        invalid_rows += 1
-        print("Invalid cancelled value")
-        continue
-
-    if cancelled == 1:
-        print("Flight was cancelled")
-
     valid_rows += 1
