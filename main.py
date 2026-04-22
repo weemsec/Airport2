@@ -46,6 +46,7 @@ for line in f:
     #checks to see if its a real number for the month
     if month < 1 or month > 12:
         print("Invalid moth")
+        continue
     #check for the right days in febuary
     if month == 2:
         if day > 29 or day < 0:
@@ -92,6 +93,20 @@ for line in f:
         print("Invalid number")
         continue
 
+    #Cancelled changing from string to int 
+    try:
+        cancelled = to_int_or_none(fields[8])
+    except:
+        invalid_rows += 1
+        print("Invalid number")
+        continue
+    #checks if 1 or 0 
+    if cancelled > 1 or cancelled < 0:
+        invalid_rows += 1
+        print("Invalid number")
+        continue
+
+    #
     #Depature delay
     if to_int_or_none(fields[6]) is None:
         print("Invalid departure delay")
