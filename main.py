@@ -105,6 +105,7 @@ for line in f:
         invalid_rows += 1
         print("Invalid number")
         continue
+    # cancelled flights may not have delay values
     if cancelled == 1:
         if dep_delay is not None or arr_delay is not None:
             invalid_rows += 1
