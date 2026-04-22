@@ -22,21 +22,21 @@ for line in f:
 
     if len(fields) != 9:
         invalid_rows = invalid_rows + 1 
-        errfile.write("Invalid row: \n")
-        errfile.write("Raw data: " + line + '\n')
+        errfile.write("Invalid row: Wrong nymber of fields\n")
+        errfile.write("Raw data: " + line + '\n\n')
         continue
     
     try:
         year = int(fields[0])
     except:
         invalid_rows = invalid_rows + 1 
-        errfile.write("Invalid row: \n")
+        errfile.write("Invalid row: Not a year number \n")
         errfile.write("Raw data: " + line + '\n')
         continue
 
     if year != 2024:
         invalid_rows = invalid_rows + 1
-        errfile.write("Invalid row: \n")
+        errfile.write("Invalid row: Not in year 2024 \n")
         errfile.write("Raw data: " + line + '\n')
         continue
     
@@ -46,29 +46,29 @@ for line in f:
         day = int(fields[2])
     except:
         invalid_rows = invalid_rows + 1
-        errfile.write("Invalid row: \n")
+        errfile.write("Invalid row: Not a Number \n")
         errfile.write("Raw data: " + line + '\n')
         continue
     #checks to see if its a real number for the month
     if month < 1 or month > 12:
-        errfile.write("Invalid row: \n")
+        errfile.write("Invalid row: Not a real Month\n")
         errfile.write("Raw data: " + line + '\n')
         continue
     #check for the right days in febuary
     if month == 2:
         if day > 29 or day < 0:
-            errfile.write("Invalid row: \n")
+            errfile.write("Invalid row: Day does not exsit in month \n")
             errfile.write("Raw data: " + line + '\n')
             continue
     #Makes sure  the month has right day
     elif month in [4,6,9,11]:
         if day != 30:
-            errfile.write("Invalid row: \n")
+            errfile.write("Invalid row: Day does not exsit in month\n")
             errfile.write("Raw data: " + line + '\n')
             continue
     else:
         if day != 31:
-            errfile.write("Invalid row: \n")
+            errfile.write("Invalid row: Day does not exsit in month\n")
             errfile.write("Raw data: " + line + '\n')
             continue
 
@@ -77,7 +77,7 @@ for line in f:
     carrier = fields[3].strip()
     if len(carrier) != 2:
         invalid_rows = invalid_rows + 1
-        errfile.write("Invalid row: \n")
+        errfile.write("Invalid row: Wrong carrier\n")
         errfile.write("Raw data: " + line + '\n')
         continue
 
@@ -85,7 +85,7 @@ for line in f:
     origin = fields[4]
     if origin not in ["CLT","ATL"]:
         invalid_rows += 1
-        errfile.write("Invalid row: \n")
+        errfile.write("Invalid row: Origin is not CLT or ATL\n")
         errfile.write("Raw data: " + line + '\n')
         continue
 
@@ -95,7 +95,7 @@ for line in f:
     destination = fields[5].strip()
     if len(destination) != 3:
         invalid_rows += 1
-        errfile.write("Invalid row: \n")
+        errfile.write("Invalid row: Worng destination\n")
         errfile.write("Raw data: " + line + '\n')
         continue
     
