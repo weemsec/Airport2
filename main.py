@@ -15,7 +15,7 @@ f = open(filename, "r")
 errfile = open("errors_log.txt", "w")
 valid_rows = 0
 invalid_rows = 0
-
+f.readline()
 for line in f:
     line = line.strip()
     fields = line.split(",")
@@ -110,7 +110,7 @@ for line in f:
 
     #Cancelled changing from string to int 
     try:
-        cancelled = to_int_or_none(fields[8])
+        cancelled = int(fields[8])
     except:
         invalid_rows += 1
         errfile.write("Invalid row: \n")
@@ -122,6 +122,15 @@ for line in f:
         errfile.write("Invalid row: \n")
         errfile.write("Raw data: " + line + '\n')
         continue
+    # cancelled flights may not have delay values
+    if cancelled == 1:
+        if dep_delay is not None or arr_delay is not None:
+            invalid_rows += 1
+            print("Invlaid number")
+    else:
+        if dep_delay is not None and arr_delay is None:
+            invalid_rows += 1
+            print("Invalid number")
 
     valid_rows += 1
 
