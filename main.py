@@ -11,6 +11,8 @@ def to_int_or_none ():
 
 filename = input("Enter the filename: ")
 f = open(filename, "r")
+
+errfile = open("errors_log.txt", "w")
 valid_rows = 0
 invalid_rows = 0
 
@@ -20,19 +22,22 @@ for line in f:
 
     if len(fields) != 9:
         invalid_rows = invalid_rows + 1 
-        print("Invalid row: ", line)
+        errfile.write("Invalid row: \n")
+        errfile.write("Raw data: " + line + '\n')
         continue
     
     try:
         year = int(fields[0])
     except:
         invalid_rows = invalid_rows + 1 
-        print("Invalid row: ", line)
+        errfile.write("Invalid row: \n")
+        errfile.write("Raw data: " + line + '\n')
         continue
 
     if year != 2024:
         invalid_rows = invalid_rows + 1
-        print("Invalid row: ", line)
+        errfile.write("Invalid row: \n")
+        errfile.write("Raw data: " + line + '\n')
         continue
     
 
@@ -41,25 +46,30 @@ for line in f:
         day = int(fields[2])
     except:
         invalid_rows = invalid_rows + 1
-        print("Invalid row: ", line)
+        errfile.write("Invalid row: \n")
+        errfile.write("Raw data: " + line + '\n')
         continue
     #checks to see if its a real number for the month
     if month < 1 or month > 12:
-        print("Invalid moth")
+        errfile.write("Invalid row: \n")
+        errfile.write("Raw data: " + line + '\n')
         continue
     #check for the right days in febuary
     if month == 2:
         if day > 29 or day < 0:
-            print("Invalid days")
+            errfile.write("Invalid row: \n")
+            errfile.write("Raw data: " + line + '\n')
             continue
     #Makes sure  the month has right day
     elif month in [4,6,9,11]:
         if day != 30:
-            print("Invalid days")
+            errfile.write("Invalid row: \n")
+            errfile.write("Raw data: " + line + '\n')
             continue
     else:
         if day != 31:
-            print("Invalid days")
+            errfile.write("Invalid row: \n")
+            errfile.write("Raw data: " + line + '\n')
             continue
 
 
@@ -67,14 +77,16 @@ for line in f:
     carrier = fields[3].strip()
     if len(carrier) != 2:
         invalid_rows = invalid_rows + 1
-        print("Invalid Carrier")
+        errfile.write("Invalid row: \n")
+        errfile.write("Raw data: " + line + '\n')
         continue
 
     # Origin must be CLT or ATL
     origin = fields[4]
     if origin not in ["CLT","ATL"]:
         invalid_rows += 1
-        print("Invalid origin")
+        errfile.write("Invalid row: \n")
+        errfile.write("Raw data: " + line + '\n')
         continue
 
     #If the code reaches here, the row has passed the first 4 steps!
@@ -83,7 +95,8 @@ for line in f:
     destination = fields[5].strip()
     if len(destination) != 3:
         invalid_rows += 1
-        print("Invalid destination")
+        errfile.write("Invalid row: \n")
+        errfile.write("Raw data: " + line + '\n')
         continue
     
     try:
@@ -91,7 +104,8 @@ for line in f:
         arr_delay = to_int_or_none(fields[7])
     except:
         invalid_rows += 1
-        print("Invalid number")
+        errfile.write("Invalid row: \n")
+        errfile.write("Raw data: " + line + '\n')
         continue
 
     #Cancelled changing from string to int 
@@ -99,15 +113,18 @@ for line in f:
         cancelled = to_int_or_none(fields[8])
     except:
         invalid_rows += 1
-        print("Invalid number")
+        errfile.write("Invalid row: \n")
+        errfile.write("Raw data: " + line + '\n')
         continue
     #checks if 1 or 0 
     if cancelled > 1 or cancelled < 0:
         invalid_rows += 1
-        print("Invalid number")
+        errfile.write("Invalid row: \n")
+        errfile.write("Raw data: " + line + '\n')
         continue
 
     valid_rows += 1
 
 f.close()
-print(f"Valid rows: {valid_rows}, Invalid rows: {invalid_rows}")
+errfile.close()
+
