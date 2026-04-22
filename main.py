@@ -13,7 +13,7 @@ filename = input("Enter the filename: ")
 f = open(filename, "r")
 valid_rows = 0
 invalid_rows = 0
-
+f.readline()
 for line in f:
     line = line.strip()
     fields = line.split(",")
@@ -97,7 +97,7 @@ for line in f:
 
     #Cancelled changing from string to int 
     try:
-        cancelled = to_int_or_none(fields[8])
+        cancelled = int(fields[8])
     except:
         invalid_rows += 1
         print("Invalid number")
@@ -107,6 +107,14 @@ for line in f:
         invalid_rows += 1
         print("Invalid number")
         continue
+    if cancelled == 1:
+        if dep_delay is not None or arr_delay is not None:
+            invalid_rows += 1
+            print("Invlaid number")
+    else:
+        if dep_delay is not None and arr_delay is None:
+            invalid_rows += 1
+            print("Invalid number")
 
     #
     #Depature delay
