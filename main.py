@@ -78,8 +78,6 @@ for line in f:
         continue
 
     #If the code reaches here, the row has passed the first 4 steps!
-    valid_rows += 1
-
     #Destination
     destination = fields[3].strip()
     if len(destination) != 3:
@@ -116,20 +114,4 @@ for line in f:
             invalid_rows += 1
             print("Invalid number")
 
-    #
-    #Depature delay
-
-
-
-
-    #Arrival delay
-    if to_int_or_none(fields[8]) is None:
-        print("Invalid arrival delay")
-        continue
-    elif to_int_or_none(fields[8]) < 15:
-        print("LATE")
-        continue
-
-
-
-    #Cancelled
+    valid_rows += 1
