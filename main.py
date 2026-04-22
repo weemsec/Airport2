@@ -77,8 +77,6 @@ for line in f:
         continue
 
     #If the code reaches here, the row has passed the first 4 steps!
-    valid_rows += 1
-
     #Destination
     destination = fields[3].strip()
     if len(destination) != 3:
@@ -95,7 +93,15 @@ for line in f:
         continue
 
     #Depature delay
-
+    if to_int_or_none(fields[6]) is None:
+        print("Invalid departure delay")
+        continue
+    elif to_int_or_none(fields[6]) < 15:
+        print("LATE")
+        continue
+    elif to_int_or_none(fields[6]) >= 0:
+        print("early departure")
+        continue
 
 
 
@@ -106,7 +112,21 @@ for line in f:
     elif to_int_or_none(fields[8]) < 15:
         print("LATE")
         continue
+    elif to_int_or_none(fields[8]) >= 0:
+        print("early arrival")
+        continue
 
 
 
     #Cancelled
+    if to_int_or_none(fields[8]) is None:
+        print("Invalid cancelled")
+        continue
+    elif to_int_or_none(fields[8]) == 1:
+        print("Cancelled")
+        continue
+    elif to_int_or_none(fields[8]) == 0:
+        print("Not cancelled")
+        continue
+
+    valid_rows += 1
