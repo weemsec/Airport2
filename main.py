@@ -18,6 +18,13 @@ invalid_rows = 0
 f.readline()
 line_number = 2
 
+#dictionary for what we want to keep track of
+airport_stats = {
+     "ATL": {"total": 0, "cancelled": 0, "arr_delay_total": 0, "late": 0, "early": 0},
+    "CLT": {"total": 0, "cancelled": 0, "arr_delay_total": 0, "late": 0, "early": 0}
+}
+dest_stats = {}
+
 for line in f:
     line = line.strip()
     fields = line.split(",")
