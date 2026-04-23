@@ -24,7 +24,7 @@ for line in f:
 
     if len(fields) != 9:
         invalid_rows += 1 
-        errfile.write(f"Line {line_number}: Wrong nymber of fields\n")
+        errfile.write(f"Line {line_number}: Wrong number of fields\n")
         errfile.write("Raw data: " + line + '\n\n')
         line_number += 1
         continue
@@ -66,7 +66,7 @@ for line in f:
     if month == 2:
         if day < 1 or day > 29:
             invalid_rows += 1
-            errfile.write(f"Line {line_number}: Day does not exsit in month \n")
+            errfile.write(f"Line {line_number}: Day does not exist in month \n")
             errfile.write("Raw data: " + line + '\n\n')
             line_number += 1
             continue
@@ -74,14 +74,14 @@ for line in f:
     elif month in [4,6,9,11]:
         if day < 1 or day > 30:
             invalid_rows += 1
-            errfile.write(f"Line {line_number}: Day does not exsit in month\n")
+            errfile.write(f"Line {line_number}: Day does not exist in month\n")
             errfile.write("Raw data: " + line + '\n\n')
             line_number += 1
             continue
     else:
         if day < 1 or day > 31:
             invalid_rows += 1
-            errfile.write(f"Line {line_number}: Day does not exsit in month\n")
+            errfile.write(f"Line {line_number}: Day does not exist in month\n")
             errfile.write("Raw data: " + line + '\n\n')
             line_number += 1
             continue
@@ -111,7 +111,7 @@ for line in f:
     destination = fields[5].strip()
     if len(destination) != 3:
         invalid_rows += 1
-        errfile.write(f"Line {line_number}: Worng destination\n")
+        errfile.write(f"Line {line_number}: Wrong destination\n")
         errfile.write("Raw data: " + line + '\n\n')
         line_number += 1
         continue
