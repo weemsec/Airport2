@@ -25,6 +25,7 @@ airport_stats = {
     "ATL": {"total": 0, "cancelled": 0, "dep_delay_total": 0, "arr_delays": [], "late": 0, "early": 0},
     "CLT": {"total": 0, "cancelled": 0, "dep_delay_total": 0, "arr_delays": [], "late": 0, "early": 0}
 }
+dest_stats = {}
 
 for line in f:
     line = line.strip()
@@ -170,6 +171,16 @@ for line in f:
             airport_stats[origin]["dep_delay_total"] += dep_delay
         if arr_delay is not None:
             airport_stats[origin]["arr_delays"].append(arr_delay)
+            if arr_delay >= 15:
+                airport_stats[origin]["late"] += 1
+            elif arr_delay <= 0:
+                airport_stats[origin]["early"] += 1
+    #track destination stats
+    if cancelled == 0 and arr_delay is not None:
+        if destination not in dest_stats:
+            dest_stats[destination]["total"] += 1
+            if arr_delay <= 0:
+                dest_stats[destination]["on_time"] += 1
 
     valid_rows += 1
     line_number += 1
