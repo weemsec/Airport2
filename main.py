@@ -1,5 +1,7 @@
 #Eli
 #Fermin
+import tkinter as tk
+from tkinter import scrolledtext
         
 #takes value turns to int or no vlaue if blank
 def to_int_or_none(value):
@@ -20,10 +22,9 @@ line_number = 2
 
 #dictionary for what we want to keep track of
 airport_stats = {
-     "ATL": {"total": 0, "cancelled": 0, "arr_delay_total": 0, "late": 0, "early": 0},
-    "CLT": {"total": 0, "cancelled": 0, "arr_delay_total": 0, "late": 0, "early": 0}
+    "ATL": {"total": 0, "cancelled": 0, "dep_delay_total": 0, "arr_delays": [], "late": 0, "early": 0},
+    "CLT": {"total": 0, "cancelled": 0, "dep_delay_total": 0, "arr_delays": [], "late": 0, "early": 0}
 }
-dest_stats = {}
 
 for line in f:
     line = line.strip()
@@ -104,7 +105,7 @@ for line in f:
         continue
 
     # Origin must be CLT or ATL
-    origin = fields[4]
+    origin = fields[4].strip()
     if origin not in ["CLT","ATL"]:
         invalid_rows += 1
         errfile.write(f"Line {line_number}: Origin is not CLT or ATL\n")
@@ -126,6 +127,7 @@ for line in f:
     try:
         dep_delay = to_int_or_none(fields[6])
         arr_delay = to_int_or_none(fields[7])
+        cancelled = int(fields[8])
     except:
         invalid_rows += 1
         errfile.write(f"Line {line_number}: Delay value is not a number\n")
@@ -157,6 +159,17 @@ for line in f:
             errfile.write("Raw data: " + line + '\n\n')
             line_number +=1
             continue
+    
+    # Logic for valid rows
+    airport_stats[origin]["total"] += 1
+    if cancelled == 1:
+        airport_stats[origin]["cancelled"] += 1
+    else:
+        # Only count delays for non-cancelled flights
+        if dep_delay is not None:
+            airport_stats[origin]["dep_delay_total"] += dep_delay
+        if arr_delay is not None:
+            airport_stats[origin]["arr_delays"].append(arr_delay)
 
     valid_rows += 1
     line_number += 1
@@ -164,4 +177,53 @@ for line in f:
 f.close()
 errfile.close()
 
+# --- Calculate Best/Worst Airports ---
+averages = {}
+for code in ["ATL", "CLT"]:
+    delays = airport_stats[code]["arr_delays"]
+    if delays:
+        averages[code] = sum(delays) / len(delays)
 
+best_dest = "N/A"
+worst_dest = "N/A"
+if len(averages) == 2:
+    best_dest = min(averages, key=averages.get)
+    worst_dest = max(averages, key=averages.get)
+elif len(averages) == 1:
+    best_dest = list(averages.keys())[0]
+
+# -- Format the Final text Output --
+output_text = "AIRPORT\n"
+output_text += "---------\n"
+
+# Add stats for each airport
+for code in ["ATL", "CLT"]:
+    output_text += f"{code}\n"
+    output_text += f"Total flights: {airport_stats[code]['total']}\n"
+    output_text += f"Cancelled Flights: {airport_stats[code]['cancelled']}\n"
+    output_text += f"total dep_delay: {airport_stats[code]['dep_delay_total']}\n\n"
+
+# Add the final comparison section
+output_text += "percent each destination arrival delay: \n"
+for code in ["ATL", "CLT"]: # Fixed "ALT" typo to "ATL"
+    if code in averages:
+        output_text += f"{code}: {averages[code]:.2f}%\n"
+
+output_text += f"\nBest Destination: {best_dest}\n"
+output_text += f"Worst Destination: {worst_dest}\n"
+
+# -- GUI --
+def launch_gui(content):
+    root = tk.Tk()
+    root.title("Airport Data Results")
+    root.geometry("400x520")
+
+    text_area = scrolledtext.ScrolledText(root, font=("Courier", 11), bg="black")
+    text_area.pack(expand=True, fill='both', padx=20, pady=20)
+    
+    text_area.insert(tk.INSERT, content)
+    text_area.configure(state='disabled')
+    
+    root.mainloop()
+
+launch_gui(output_text)
