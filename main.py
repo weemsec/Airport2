@@ -216,9 +216,9 @@ output_text += f"Worst Destination: {worst_dest}\n"
 def launch_gui(content):
     root = tk.Tk()
     root.title("Airport Data Results")
-    root.geometry("400x520")
+    root.geometry("500x520")
 
-    text_area = scrolledtext.ScrolledText(root, font=("Courier", 11), bg="black")
+    text_area = scrolledtext.ScrolledText(root, font=("Courier", 11), bg="black", fg="White")
     text_area.pack(expand=True, fill='both', padx=20, pady=20)
     
     text_area.insert(tk.INSERT, content)
