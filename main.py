@@ -178,8 +178,9 @@ for line in f:
     #track destination stats
     if cancelled == 0 and arr_delay is not None:
         if destination not in dest_stats:
-            dest_stats[destination]["total"] += 1
-            if arr_delay <= 0:
+            dest_stats[destination] = {"on_time": 0, "total": 0}
+        dest_stats[destination]["total"] += 1
+        if arr_delay <= 0:
                 dest_stats[destination]["on_time"] += 1
 
     valid_rows += 1
@@ -189,23 +190,28 @@ f.close()
 errfile.close()
 
 # --- Calculate Best/Worst Airports ---
-averages = {}
-for code in ["ATL", "CLT"]:
-    delays = airport_stats[code]["arr_delays"]
-    if delays:
-        averages[code] = sum(delays) / len(delays)
-
 best_dest = "N/A"
 worst_dest = "N/A"
-if len(averages) == 2:
-    best_dest = min(averages, key=averages.get)
-    worst_dest = max(averages, key=averages.get)
-elif len(averages) == 1:
-    best_dest = list(averages.keys())[0]
+best_pct = -1
+worst_pct = 101
+
+for dest in dest_stats:
+    total = dest_stats[dest]["total"]
+    on_time = dest_stats[dest]["on_time"]
+    if total > 0:
+        pct = (on_time / total) * 100
+        if pct > best_pct:
+            best_pct = pct
+            best_dest = dest
+        if pct < worst_pct:
+            worst_pct = pct
+            worst_dest = dest
 
 # -- Format the Final text Output --
 output_text = "AIRPORT\n"
 output_text += "---------\n"
+output_text += f"Valid Rows: {valid_rows}\n"
+output_text += f"Invalid Rows: {invalid_rows}\n\n"
 
 # Add stats for each airport
 for code in ["ATL", "CLT"]:
@@ -213,15 +219,19 @@ for code in ["ATL", "CLT"]:
     output_text += f"Total flights: {airport_stats[code]['total']}\n"
     output_text += f"Cancelled Flights: {airport_stats[code]['cancelled']}\n"
     output_text += f"total dep_delay: {airport_stats[code]['dep_delay_total']}\n\n"
+    output_text += f"Late Arrivals: {airport_stats[code]['late']}\n"
+    output_text += f"Early Arrivals: {airport_stats[code]['early']}\n\n"
 
 # Add the final comparison section
 output_text += "percent each destination arrival delay: \n"
-for code in ["ATL", "CLT"]: # Fixed "ALT" typo to "ATL"
-    if code in averages:
-        output_text += f"{code}: {averages[code]:.2f}%\n"
-
-output_text += f"\nBest Destination: {best_dest}\n"
-output_text += f"Worst Destination: {worst_dest}\n"
+for dest in dest_stats:
+    total = dest_stats[dest]["total"]
+    on_time = dest_stats[dest]["on_time"]
+    if total > 0:
+        pct = (on_time / total) * 100
+        output_text += f"{dest}: {pct:.1f}%\n"
+output_text += f"\nBest Destination: {best_dest} ({best_pct:.1f}% on time)\n"
+output_text += f"Worst Destination: {worst_dest} ({worst_pct:.1f}% on time)\n"
 
 # -- GUI --
 def launch_gui(content):
