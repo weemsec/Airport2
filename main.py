@@ -216,14 +216,14 @@ output_text += f"Invalid Rows: {invalid_rows}\n\n"
 # Add stats for each airport
 for code in ["ATL", "CLT"]:
     output_text += f"{code}\n"
-    output_text += f"Total flights: {airport_stats[code]['total']}\n"
+    output_text += f"Total Flights: {airport_stats[code]['total']}\n"
     output_text += f"Cancelled Flights: {airport_stats[code]['cancelled']}\n"
-    output_text += f"total dep_delay: {airport_stats[code]['dep_delay_total']}\n\n"
+    output_text += f"Total Departure Delay: {airport_stats[code]['dep_delay_total']} min\n\n"
     output_text += f"Late Arrivals: {airport_stats[code]['late']}\n"
     output_text += f"Early Arrivals: {airport_stats[code]['early']}\n\n"
 
 # Add the final comparison section
-output_text += "percent each destination arrival delay: \n"
+output_text += "Percent of each destination's arrival delay: \n"
 for dest in dest_stats:
     total = dest_stats[dest]["total"]
     on_time = dest_stats[dest]["on_time"]
