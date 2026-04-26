@@ -128,7 +128,6 @@ for line in f:
     try:
         dep_delay = to_int_or_none(fields[6])
         arr_delay = to_int_or_none(fields[7])
-        cancelled = int(fields[8])
     except:
         invalid_rows += 1
         errfile.write(f"Line {line_number}: Delay value is not a number\n")
@@ -181,7 +180,7 @@ for line in f:
             dest_stats[destination] = {"on_time": 0, "total": 0}
         dest_stats[destination]["total"] += 1
         if arr_delay <= 0:
-                dest_stats[destination]["on_time"] += 1
+            dest_stats[destination]["on_time"] += 1
 
     valid_rows += 1
     line_number += 1
