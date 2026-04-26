@@ -2,6 +2,7 @@
 #Fermin
 import tkinter as tk
 from tkinter import scrolledtext
+from tkinter import ttk
         
 #takes value turns to int or no vlaue if blank
 def to_int_or_none(value):
