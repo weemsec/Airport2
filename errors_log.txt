@@ -1,0 +1,21 @@
+Line 1002: Not a real Month
+Raw data: 2024,13,5,AA,CLT,JFK,10,20,0
+
+Line 1003: Day does not exist in month 
+Raw data: 2024,2,30,DL,ATL,ORD,5,10,0
+
+Line 1004: Wrong carrier
+Raw data: 2024,3,12,,CLT,BOS,0,5,0
+
+Line 1005: Wrong destination
+Raw data: 2024,4,18,UA,ATL,,3,8,0
+
+Line 1006: Wrong number of fields
+Raw data: YEAR,MONTH,DAY_OF_MONTH,OP,ORIGIN
+
+Line 1007: Delay value is not a number
+Raw data: 2024,5,10,AA,CLT,JFK,abc,15,0
+
+Line 1008: Delay value is not a number
+Raw data: 2024,6,22,WN,ATL,DEN,12,,
+
